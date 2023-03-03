@@ -4,18 +4,6 @@ description: "The template used for running the packer step in GitHub Actions"
 
 # Were we can define the inputs that our action will accept
 inputs:
-  CLIENT_ID:
-    description: ""
-    required: true
-  CLIENT_SECRET:
-    description: ""
-    required: true
-  SUBSCRIPTION_ID:
-    description: ""
-    required: true
-  TENANT_ID:
-    description: ""
-    required: true
   AZURE_CREDENTIALS:
     description: ""
     required: true
