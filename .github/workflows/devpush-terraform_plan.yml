@@ -1,0 +1,46 @@
+name: 'Terraform Dev Push'
+
+on: 
+  workflow_dispatch:
+  push:
+    branches:
+    - development
+
+jobs:
+  terraform-dev-plan:
+    name: 'Terraform Plan - Dev'
+
+    runs-on: ubuntu-latest
+    environment: dev
+    
+    if: ${{ github.ref == 'refs/heads/development' && github.event_name == 'push' }}
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.TENANT_ID }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+      ENV_NAME: dev
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+ 
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Terraform
+        uses: "./.github/actions/terraform/plan"
+        with:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
+          TENANT_ID: ${{ secrets.TENANT_ID }}
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          ENV_NAME: ${{ env.ENV_NAME }}
+          AGENT_IP: ${{ steps.get-agent-ip.outputs.agent_ip }}
+          
