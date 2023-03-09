@@ -11,26 +11,35 @@ This repo contains Terraform configurations to deploy an Azure App Service and a
 
 
 # Run Deployments Locally
-Note: the following assumes the code was cloned to the c:\repos\APIM directory.
+Note: the following assumes the code was cloned to the c:\repos\Terraform-Proficiency-Silver-thandler directory.
 1. Login to az login with the following command
 ```
 az login
 ```
+3. Set active subscription
+```
+az account set --subscription "<subscriptionId>"
+```
 
-2. Navigate to the src folder
-3. Run the Terraform init command for the targeted environment
+3. Navigate to the src folder
+4. Run the Terraform init command for the targeted environment
 ``` 
 terraform init -backend-config="..\backend_tfvars\dev_backend.tfvars" 
 ```
 
-4. After Terraform's backend has been initiated to the environment's remote state you can run the plan command `terraform plan` command to see what Azure resources will be create/updated/destroyed.
+5. After Terraform's backend has been initiated to the environment's remote state you can run the plan command `terraform plan` command to see what Azure resources will be create/updated/destroyed.
 
 ```
 terraform plan -var-file "../tfvars/dev.tfvars"
 ```
-5. Once the plan command runs succussfully and the expected changes are reflexed, the changes can be applied locally. However it is recommened that changes are applied via the established GitHub Workflows. 
+6. Once the plan command runs succussfully and the expected changes are reflexed, the changes can be applied locally. However it is recommened that changes are applied via the established GitHub Workflows. 
 ```
 terraform apply -var-file "../tfvars/dev.tfvars"
+```
+
+7. Clean up resources
+```
+terraform destroy
 ```
 
 # Workflows
