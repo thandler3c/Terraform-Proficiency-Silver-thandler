@@ -38,7 +38,7 @@ terraform apply -var-file "../tfvars/dev.tfvars"
 - [**Terraform Plan/Apply**](.github/workflows/terraform-plan-apply.yml)
     - **Trigger** - Completed PR on the main branch.
     - **Jobs**
-        - A job for each defined environment (Current environments: dev, qa, production)
+        - A job for each defined environment
         - A execution of a job requires an approval for the given environment
         - **Steps**
             - Call the Terraform Apply Action
